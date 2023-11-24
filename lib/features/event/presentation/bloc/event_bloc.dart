@@ -14,7 +14,11 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       if(event is EventFetchEvent){
         emit(EventLoadingState());
         List<EventEntity> events = await eventFetchUsecase.call();
-        emit(EventFetchedState(events));
+        if(events.isEmpty){
+          emit(EventFetchingFailedState());
+        }else {
+          emit(EventFetchedState(events));
+        }
       }
     });
   }

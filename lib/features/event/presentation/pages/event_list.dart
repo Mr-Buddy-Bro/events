@@ -47,8 +47,9 @@ class EventList extends StatelessWidget {
                 ),
                 BlocBuilder<EventBloc, EventState>(
                   builder: (context, state) {
-                    List<EventEntity> events = state.events!;
-                    return ListView.builder(
+                    if(state is EventFetchedState) {
+                      List<EventEntity> events = state.events!;
+                      return ListView.builder(
                       itemCount: events.length,
                       shrinkWrap: true,
                       primary: false,
@@ -57,6 +58,11 @@ class EventList extends StatelessWidget {
                             event: events[index], onPressed: () {});
                       },
                     );
+                    }else if(state is EventInitial || state is EventFetchingFailedState){
+                      return ElevatedButton(onPressed: (){}, child: const Text('Load events'));
+                    }else{
+                      return const CircularProgressIndicator();
+                    }
                   },
                 )
               ],

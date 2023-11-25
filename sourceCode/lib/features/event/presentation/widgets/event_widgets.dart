@@ -5,6 +5,7 @@ import 'package:events/core/constants/strings.dart';
 import 'package:events/features/event/domain/entities/eventEntity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ordinal_formatter/ordinal_formatter.dart';
 
 class EventItemCard extends StatelessWidget {
   EventEntity event;
@@ -30,7 +31,7 @@ class EventItemCard extends StatelessWidget {
                 height: 100,
                 width: 90,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(image: NetworkImage(event.bannerImage), fit: BoxFit.cover)
                 ),
               ),
@@ -102,7 +103,7 @@ class EventSearchItemCard extends StatelessWidget {
                 height: 100,
                 width: 90,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(image: NetworkImage(event.bannerImage), fit: BoxFit.cover)
                 ),
               ),
@@ -115,12 +116,21 @@ class EventSearchItemCard extends StatelessWidget {
                   const SizedBox(height: 12,),
                   Row(
                     children: [
-                      Text('${DateFormat('dd').format(event.dateTime)} ${DateFormat('MMM').format(event.dateTime).toUpperCase()} - ${DateFormat('EEE').format(event.dateTime)} - ', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: MyColors.primary),),
+                      FutureBuilder(
+                        future: OrdinalFormatter().format(int.parse(DateFormat('dd').format(event.dateTime))),
+                        builder: (context, snap) {
+                          if(snap.hasData) {
+                            return Text('${snap.data} ${DateFormat('MMM').format(event.dateTime)} - ${DateFormat('EEE').format(event.dateTime)} - '.toUpperCase(), style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: MyColors.primary),);
+                          }else{
+                            return const Text('');
+                          }
+                        }
+                      ),
                       Text(DateFormat.jm().format(event.dateTime), style: TextStyle(fontSize: 16, color: MyColors.primary, fontWeight: FontWeight.w500),),
                     ],
                   ),
                   const SizedBox(height: 3,), 
-                  Text(event.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  Text(event.title, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w500),),
                   
               
                 ],

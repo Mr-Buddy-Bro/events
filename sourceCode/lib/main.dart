@@ -1,6 +1,7 @@
 // This program is written by Akhil Benny as part of the Round 2 Selection of internship program at The Internet Folks
 // This program is developed by following clean architure and bloc state management for high scalabillty and perfomance
 
+import 'package:events/core/config/myColors.dart';
 import 'package:events/features/event/presentation/bloc/event_detail_bloc/event_detail_bloc.dart';
 import 'package:events/features/event/presentation/bloc/event_list_bloc/event_bloc.dart';
 import 'package:events/features/event/presentation/bloc/event_search_bloc/bloc/event_search_bloc.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'Poppins'
+          fontFamily: 'Poppins',
+          scaffoldBackgroundColor: MyColors.scaffoldBg
         ),
         initialRoute: '/',
         routes: {

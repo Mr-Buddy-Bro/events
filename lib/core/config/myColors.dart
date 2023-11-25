@@ -3,6 +3,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 class MyColors{
   static Color primary = HexColor('#5669FF');
-  static Color grey = HexColor('#9395a7');
+  static Color primaryLight = const Color.fromARGB(255, 233, 233, 255);
+  static Color grey = HexColor('#838597');
+  static Color lightgrey = Colors.white38;
+  static Color hint = Colors.black26;
   static Color cardBg = HexColor('#ffffff');
 }

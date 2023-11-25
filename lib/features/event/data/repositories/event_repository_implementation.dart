@@ -13,11 +13,28 @@ class EventRepositoryImplementation extends EventRepository{
   Future<List<EventEntity>> fetchEvents() async{
     List<EventModel> eventModels = await remoteDataSource.fetchEvents();
     List<EventEntity> events = [];
-    for (var element in eventModels) { 
-      events.add(element.toEntity());
+    for (var event in eventModels) { 
+      events.add(event.toEntity());
     }
 
     return events;
+  }
+  
+  @override
+  Future<List<EventEntity>> searchEvents(String text)async {
+    List<EventModel> eventModels = await remoteDataSource.searchEvent(text);
+    List<EventEntity> events = [];
+    for (var event in eventModels) { 
+      events.add(event.toEntity());
+    }
+
+    return events;
+  }
+  
+  @override
+  Future<EventEntity> fetchEventsDetails(int id)async {
+    EventModel eventModel = await remoteDataSource.fetchEventDetails(id);
+    return eventModel.toEntity();
   }
 
 }
